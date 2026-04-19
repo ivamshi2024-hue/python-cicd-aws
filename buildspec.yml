@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
+
+  build:
+    commands:
+      - echo Build started...
+      - echo Running application test...
+      - python app.py & sleep 5
+      - curl http://localhost:8080 || exit 1
+
+  post_build:
+    commands:
+      - echo Build completed successfully
+
+artifacts:
+  files:
+    - '**/*'
